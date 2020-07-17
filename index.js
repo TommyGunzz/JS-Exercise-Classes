@@ -78,12 +78,11 @@ class Car {
       this.milesPerGallon = milesPerGallon;
       this.tank = 0;
       this.odometer = 0;
-    }
+    };
 
 fill(gallons) {
   this.tank += gallons;
-
-}
+};
 drive(distance) {
   if(this.tank >= distance / this.milesPerGallon){
       this.odometer += distance;
@@ -95,8 +94,8 @@ drive(distance) {
       return `I ran out of fuel at ${this.odometer} miles!`;
     };
   };
-    };
-};
+  };
+  };
 
 /*
   TASK 3
@@ -111,8 +110,17 @@ drive(distance) {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(member) {
+    this.name = member.name;
+    this.age = member.age;
+    this.location = member.location;
+    };
+speak() {
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  };
+  };
 
-}
+
 
 /*
   TASK 4
@@ -128,9 +136,42 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
+class Instructor extends Lambdasian {
+  constructor(teacher) {
+    super(teacher);
+    this.specialty = teacher.specialty;
+    this.favLanguage = teacher.favLanguage;
+    this.catchPhrase = teacher.catchPhrase;
+  };
+     demo(subject) {
+       return `Today we are learning about ${subject}`;
+  };
 
-}
+    grade(student, subject) {
+    return `${student.name} receives a perfect score on ${subject}`
+  };
+
+    changeGrade(student) {
+  if (student.grade >= 0 && student.grade <= 100) {
+      const randomScore = Math.floor(Math.random() * (1 - 100 + 1)) + 100;
+      const randomAddSubtract = Math.random() * 1;
+
+  if (randomAddSubtract == 0) {
+        student.grade -= randomScore;
+      } else {
+        student.grade += randomScore;
+      };
+      
+  if(student.grade > 100) {
+        student.grade = 100;
+      } else if (student.grade < 0) {
+        student.grade = 0;
+      };
+
+      console.log(student.grade);
+    };
+   };
+    } ;
 
 /*
   TASK 5
@@ -147,10 +188,45 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
 
-}
+class Student extends Lambdasian {
+  constructor(student) {
+    super(student);
+      this.previousBackground = student.previousBackground;
+      this.className = student.className;
+      this.favSubjects = student.favSubjects;
+      this.grade = 100;
+  };
 
+  listSubjects() {
+    let subjects = "Loving ";
+    
+    for (let i = 0; i < this.favSubjects.length; i++) {
+      if (i < this.favSubjects.length - 1) {
+        subjects += `${this.favSubjects[i]}, `;
+      } else if (i == this.favSubjects.length - 1) {
+        subjects += `${this.favSubjects[i]}!`;
+      };
+    };
+     return subjects;
+  };
+
+  PRAssignment(subject) {
+      return `${this.name} has submitted a PR for ${subject}`;
+  };
+
+  sprintChallenge(subject) {
+      return `${this.name} has begun sprint challenge on ${subject}`;
+  };
+
+  graduate() {
+    if(this.grade >= 70) {
+      return `Congratulations, you graduate with a grade of ${this.grade}`;
+      } else {
+         return `I'm sorry, your grade is ${this.grade} which is not enough to graduate. Please see your Instructor or PM to check your assignment grades`;
+  };
+};
+};
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
